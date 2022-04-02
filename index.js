@@ -10,9 +10,9 @@ const pool = new Pool({
 });
 
 express() 
-  .use(experss.static(path.join(_dirname, 'public')))
+  .use(express.static(path.join(_dirname, 'public')))
   .use(express.json())
-  .use(experss.urlencoded({ exteneded: true}))
+  .use(express.urlencoded({ exteneded: true}))
   .set('views', path.join(_dirname, "views"))
   .set('view engine', 'ejs')
   .get('/', async(req, res) => {
