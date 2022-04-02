@@ -13,7 +13,7 @@ express()
   .use(express.static(path.join(_dirname, 'public')))
   .use(express.json())
   .use(express.urlencoded({ exteneded: true}))
-  .set('views', path.join(_dirname, "views"))
+  .set('views', path.join(__dirname, "views"))
   .set('view engine', 'ejs')
   .get('/', async(req, res) => {
     try {
