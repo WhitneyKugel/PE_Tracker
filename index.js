@@ -10,7 +10,7 @@ const pool = new Pool({
 });
 
 express() 
-  .use(express.static(path.join(_dirname, 'public')))
+  .use(express.static(path.join(__dirname, 'public')))
   .use(express.json())
   .use(express.urlencoded({ exteneded: true}))
   .set('views', path.join(__dirname, "views"))
