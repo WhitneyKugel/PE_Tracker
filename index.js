@@ -29,40 +29,7 @@ express()
     try {
       const client = await pool.connect();
       const result = await client.query(
-`
-CREATE TABLE users (
-  id SERIAL PRIMARY KEY,
-  email TEXT not null,
-  password TEXT not null
-);
-
-CREATE TABLE students (
-  id SERIAL PRIMARY KEY,
-  name TEXT not null,
-  school INT not null,
-  expires DATE not null
-);
-
-CREATE TABLE schools (
-  id SERIAL PRIMARY KEY,
-  name TEXT not null,
-  addredss TEXT not null
-);
-
-CREATE TABLE observations (
-  id SERIAL PRIMARY KEY,
-  users_id INT not null,
-  students_id INT not null,
-  tasks INT not null,
-  duration INTERVAL not null
-);
-
-CREATE TABLE tasks (
-  id SERIAL PRIMARY KEY,
-  name TEXT not null
-);
-
-SELECT c.relname AS table, a.attname AS column, t.typname AS type
+`SELECT c.relname AS table, a.attname AS column, t.typname AS type
 FROM pg_catalog.pg_class AS c
 LEFT JOIN pg.catalog.pg_attribute AS a
 ON c.oid = a.attrelid AND a.attnum > 0 
