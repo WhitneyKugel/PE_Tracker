@@ -70,14 +70,14 @@ ORDER BY c.relname, a.attnum;
       const tasksId = req.body.tasks_id;
       const duration = req.body.duration;
       
-      const qslInsert = await client.query(
+      const sqlInsert = await client.query(
 `INSERT INTO observations (users_id, students_id, tasks_id, duration)
 VALUES (${usersId}, ${studentsId}, ${tasksId}, ${duration})
 RETURNING id as new_id;`);
       console.log(`Tracking task ${tasksId}`);
 
       const result = {
-        'response': (sqlInsert) ? (sqlInsert.row[0]) : null
+        'response': (sqlInsert) ? (sqlInsert.rows[0]) : null
       };
       res.set({ 
         'Content-Type': 'application/json'
