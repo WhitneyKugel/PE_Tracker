@@ -3,13 +3,16 @@
   <head>
     <title>PE Tracker</title>
     <meta charset="utf-8">
+    <link rel="stylesheet" href="/styles/styles.css" type="text/css">
   </head>
   <body>
-    <h1>PE Tracker</h1>
-    <% tasks.forEach(function(r) {%>
-      <button id='<%= r.id %>'
-        onClick='javascript:logTask("<%= r.id %>");'><%= r.name %></button>
-    <% }); %>
+    <div id="main">
+      <h1>PE Tracker</h1>
+      <% tasks.forEach(function(r) {%>
+        <button id='<%= r.id %>'
+          onClick='javascript:logTask("<%= r.id %>");'><%= r.name %></button>
+      <% }); %>
+    </div>
     <script>
       let currentTaskId = null;
 
