@@ -20,13 +20,19 @@ express()
       const client = await pool.connect();
 
       const tasks = await client.query(
-`SELECT * FROM tasks ORDER BY id ASC`);        
+`SELECT * FROM tasks ORDER BY id ASC`);
+
+      const obs = await client.query(
+`SELECT * FROM observations`);
       
       const locals = {
-        'tasks': (tasks) ? tasks.rows : null 
+        'tasks': (tasks) ? tasks.rows : null,
+        'obs': (obs) ? obs.rows : null
       };
+
       res.render('pages/index', locals);
       client.release();
+      
     } catch (err) {
       console.error(err);
       res.send("Error: " + err);
