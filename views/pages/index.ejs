@@ -15,8 +15,7 @@
           Start
         </button>
 
-        <button 
-          onClick='javascript:end();'
+        <button id='<%= r.id %>'
           onClick='javascript:logTask("<%= r.id %>");'>
           Stop
         </button>
@@ -34,7 +33,7 @@
 
     <script>
       let currentTaskId = null;
-      var startTime, endTime;
+      var startTime, endTime, seconds;
 
       function start() {
         startTime = new Date();
@@ -44,11 +43,12 @@
         endTime = new Date();
         var timeDiff = (endTime - startTime) / 1000;
 
-        var seconds = Math.round(timeDiff);
+        seconds = Math.round(timeDiff);
         console.log(seconds + " seconds");
       }
 
       const logTask = async function(id) {
+        end();
         const response = await fetch('/log', { 
           method: 'POST',
           headers: {
