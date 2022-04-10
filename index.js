@@ -19,14 +19,10 @@ express()
     try {
       const client = await pool.connect();
 
-      const tasks = await client.query(
-`SELECT * FROM tasks ORDER BY id ASC`);
-
       const obs = await client.query(
 `SELECT * FROM observations`);
       
       const locals = {
-        'tasks': (tasks) ? tasks.rows : null,
         'obs': (obs) ? obs.rows : null
       };
 
@@ -48,7 +44,7 @@ LEFT JOIN pg_catalog.pg_attribute AS a
 ON c.oid = a.attrelid AND a.attnum > 0 
 LEFT JOIN pg_catalog.pg_type AS t
 ON a.atttypid = t.oid
-WHERE c.relname IN ('users', 'observations', 'students', 'schools', 'tasks')
+WHERE c.relname IN ('observations')
 ORDER BY c.relname, a.attnum;
 `);
 
@@ -71,19 +67,16 @@ ORDER BY c.relname, a.attnum;
   .post('/log', async (req, res) => {
     try {
       const client = await pool.connect();
-      const usersId = req.body.users_id;
-      const studentsId = req.body.students_id;
-      const tasksId = req.body.tasks_id;
+      const id = req.body.id;
       const duration = req.body.duration;
       
-      const sqlInsert = await client.query(
-`INSERT INTO observations (users_id, students_id, tasks_id, duration)
-VALUES (${usersId}, ${studentsId}, ${tasksId}, ${duration})
-RETURNING id as new_id;`);
-      console.log(`Tracking task ${tasksId}`);
-
+      const sqlUpdate = await client.query(
+`UPDATE observations 
+SET duration = ${duration}
+WHERE id = ${id};`);
+      
       const result = {
-        'response': (sqlInsert) ? (sqlInsert.rows[0]) : null
+        'response': (sqlUpdate) ? (sqlUpdate.rows[id]) : null
       };
       res.set({ 
         'Content-Type': 'application/json'
