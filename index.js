@@ -20,7 +20,9 @@ express()
       const client = await pool.connect();
 
       const obs = await client.query(
-`SELECT * FROM observations`);
+`SELECT * 
+FROM observations
+ORDER BY id;`);
       
       const locals = {
         'obs': (obs) ? obs.rows : null
@@ -69,10 +71,11 @@ ORDER BY c.relname, a.attnum;
       const client = await pool.connect();
       const id = req.body.id;
       const duration = req.body.duration;
+      const ranking = req.body.ranking;
       
       const sqlUpdate = await client.query(
 `UPDATE observations 
-SET duration = ${duration}
+SET duration = ${duration}, ranking = ${ranking}
 WHERE id = ${id};`);
       
       const result = {
