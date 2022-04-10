@@ -47,17 +47,8 @@
 
         seconds = Math.round(timeDiff);
 
-        durationList[id] = seconds;
-        durationList.sort(function(a, b){return a - b});
-
-        ranking = durationList.indexOf(durationList[id - 2]);
-
         // Reload page to show to newly tracked duration
         location.reload();
-      }
-
-      function resetTimes(r) {
-        
       }
 
       const logTask = async function(id) {
@@ -71,8 +62,7 @@
           },
           body: JSON.stringify({
             id: id,
-            duration: seconds,
-            ranking: ranking + 1
+            duration: seconds
           })
         });
         const result = await response.json();

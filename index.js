@@ -71,11 +71,10 @@ ORDER BY c.relname, a.attnum;
       const client = await pool.connect();
       const id = req.body.id;
       const duration = req.body.duration;
-      const ranking = req.body.ranking;
       
       const sqlUpdate = await client.query(
 `UPDATE observations 
-SET duration = ${duration}, ranking = ${ranking}
+SET duration = ${duration}
 WHERE id = ${id};`);
       
       const result = {
