@@ -10,20 +10,20 @@
       <h1>PE Tracker</h1>
 
       <% obs.forEach(function(r) {%>
-        <h2><%= r.name %></h2>
+        <h2><%=r.name%></h2>
 
         <button onClick='javascript:start();'>
           Start
         </button>
 
-        <button id='<%= r.id %>'
+        <button id='<%=r.id%>'
           onClick='javascript:logTask("<%= r.id %>");'>
           Stop
         </button>
 
         <div id="rank">
          
-          <%= r.duration %>
+          <%=r.duration%>
 
         </div>
         
@@ -47,8 +47,6 @@
 
         seconds = Math.round(timeDiff);
 
-        // Reload page to show to newly tracked duration
-        location.reload();
       }
 
       const logTask = async function(id) {

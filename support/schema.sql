@@ -28,7 +28,7 @@ CREATE TABLE tasks (
   name TEXT not null
 );
 
-INSERT INTO observations (name, duration, ranking) VALUES 
+INSERT INTO observations (name, duration) VALUES 
   ('Planned Presentation', 0),
   ('Response Presentation', 0),
   ('Monitoring', 0),
